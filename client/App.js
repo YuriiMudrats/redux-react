@@ -1,13 +1,11 @@
 import React, {Component}  from 'react';
-import Main from './routes'
-import NavBar from '../client/store/components/NavigatorBar'
-
-
+import Main from './src/router'
+import NavBar from './src/components/NavBar'
 
 
 class App extends Component{
      render(){
-        return(
+      return(
        <div className='container'>
           <NavBar/>
           <Main/>

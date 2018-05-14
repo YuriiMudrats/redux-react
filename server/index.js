@@ -10,7 +10,7 @@ let app=express()
 app.use(bodyParser.json())
 let router=express.Router()
 
-
+console.log(users)
 
 app.use(webpackMiddleware(webpack(webpackConfig)))
 app.get('/*',(req, resp)=>{

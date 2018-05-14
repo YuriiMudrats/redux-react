@@ -1,21 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default Laber=({name, label, id})=>{
+const Label=({className, label, id})=>{
         return (
-           <label id={id} className={name}>{label}</label>
+           <label id={id} className={className}>{label}</label>
         )
 }
 Label.displayName="Label"
 
 Label.defaultProps={
-    name: "controle-label"
+    className: "controle-label"
 }
 
 Label.propTypes={
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   label: PropTypes.string.isRequired
 }
 
+export default Label
 
 

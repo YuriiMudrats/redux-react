@@ -1,0 +1,2 @@
+export const POST_SIGNUP_FORM = 'POST_SIGNUP_FORM'
+export const SET_DATA_TO_STORE='SET_DATA_TO_STORE'

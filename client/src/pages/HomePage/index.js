@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 
 
-class Greeting extends Component {
+class HomePage extends Component {
     render(){
     return (
         <div>
@@ -11,4 +11,4 @@ class Greeting extends Component {
 }
 }
 
-export default Greeting
+export default HomePage

@@ -11,7 +11,8 @@ router.post('/', (req, res)=>{
    if(isValid) {
        res.json({success: true})
    }  
-     else { res.status(400).json(errors)
+     else { 
+       res.status(400).json(errors)
    }
 }
 )
