@@ -13,7 +13,7 @@ constructor(props){
         console.log(this.state)
     }
     onChange(e){
-         this.setState({[e.target.name]: e.target.value })
+         this.state.getsetData
          }
        
     render(){
@@ -22,7 +22,7 @@ constructor(props){
         <form onSubmit={this.onSubmit}>
             <h2>Login </h2>
             <Input
-                inputName="usernane"
+                inputName="username"
                 type="text"
                 id="usernamelf"
                 value={email}

@@ -12,19 +12,16 @@ export default function validateInput(data){
     if(data.email===null){
         errors.email="This email is empty"
     }
-    // if(!Validator.isEmail(data.email)){
-    //    errors.email='Email is invalid'
-    // }   
-    
+         
     if(data.password===null){
         errors.password="This password is empty"
     }
     if(data.passwordConfirm===null){
         errors.passwordConfirm="This passwordConfirm is empty"
     }
-    // if(!Validator.equals(data.password,data.passwordConfirm)){
-    //     errors.passwordConfirm='Password must match'
-    // }
+    if(!Validator.equals(data.password,data.passwordConfirm)){
+        errors.passwordConfirm='Password must match'
+    }
     if(data.timezone===null){
         errors.timezone="This timezone is empty"
     }

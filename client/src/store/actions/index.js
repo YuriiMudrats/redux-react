@@ -23,10 +23,15 @@ export function setForm(payload){
     }
 
 }
+export function changeState(){
+  return {
+    type: MERGE_PROPS   
+  }
+}
 export function setReq(){
   return (dispatch, setState, axios)=>{
     const data=setState().user
-     axios.post('/api/users/', data)
+      axios.post('/api/users/', data)
      .then(data=>console.log(data))
      dispatch(setForm())
    }

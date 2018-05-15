@@ -4,7 +4,9 @@ import bodyParser from 'body-parser'
 import webpack from 'webpack'
 import webpackMiddleware from 'webpack-dev-middleware'
 import webpackConfig from '../webpack.config.dev'
+import config from './config'
 import users from './routes/users'
+import mongoose from 'mongoose'
 const port=3000
 let app=express()
 app.use(bodyParser.json())
@@ -21,5 +23,5 @@ app.use('/api/users', users)
 
 
 app.listen(port, ()=> {
-    console.log('Server started port: 3000')
+    console.log(`Server started port: ${config.port}`)
 })
