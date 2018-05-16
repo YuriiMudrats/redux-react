@@ -6,23 +6,26 @@ export default function validateInput(data){
 
     let errors={}
 
-    if(data.username===null){
+    if(!data.username){
         errors.username="This username is empty"
     }
-    if(data.email===null){
+    if(!data.email){
         errors.email="This email is empty"
     }
          
-    if(data.password===null){
+    if(!data.password){
         errors.password="This password is empty"
     }
-    if(data.passwordConfirm===null){
+    
+    if(!data.passwordConfirm){
         errors.passwordConfirm="This passwordConfirm is empty"
     }
+    if(data.passwordConfirm&&data.passwordConfirm){
     if(!Validator.equals(data.password,data.passwordConfirm)){
         errors.passwordConfirm='Password must match'
-    }
-    if(data.timezone===null){
+    }}
+
+    if(!data.timezone){
         errors.timezone="This timezone is empty"
     }
     return {

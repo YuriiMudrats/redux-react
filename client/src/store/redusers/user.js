@@ -1,11 +1,11 @@
-import {SET_DATA_TO_STORE } from '../constan'
+import {SET_DATA_TO_STORE, MERGE_PROPS} from '../constan'
 
 const initialState={
-         username: null,
-         password: null,
-         email: null,
-         passwordConfirm: null,
-         timezone: null
+         username: '',
+         password: '',
+         email: '',
+         passwordConfirm: '',
+         timezone: ''
          }
  
  export default function userState(state=initialState, {type, payload}){
@@ -13,7 +13,9 @@ const initialState={
          case SET_DATA_TO_STORE : 
             return Object.assign( state, {
                 [payload.target.name] : payload.target.value
-         })          
+         })
+           case MERGE_PROPS : 
+           return Object.assign({},{username, password, email, timezone})       
          default:  
             return state
      }       

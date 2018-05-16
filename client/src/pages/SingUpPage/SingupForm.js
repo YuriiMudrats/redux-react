@@ -7,46 +7,31 @@ import validateInput from '../../../../server/shared/validations/signup'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 import SelectField from '../../components/Select'
+import Alert from '../../components/Alert'
 
 
 
 class SingupForm extends Component {
         constructor(props){
-            super(props)
-    
+            super(props)             
         this.onSubmit = this.onSubmit.bind(this)
         this.onChange = this.onChange.bind(this)
-    }
-   
-    // отредактировать валицию на клиентк работатет не правильно
-    // isValid(){
-    //     const { errors, isValid}=validateInput(this.state)
-    //     console.log(errors)
-    //     if(!isValid){
-    //         this.setState({errors :errors})
-    //      }
-    //     }
-
-    onSubmit(e){
-        // const { history } = this.props 
-        console.log(this.props.setReq)
-        e.preventDefault()               
-        this.props.setReq()
-        // .then((data)=>{
-        //     this.setState({redirect: true})
-        //     }).then( () => {
-        //         history.push('/')
-        //     }).catch( err => {
-        //        const error = err.response.data
-        //        this.setState({errors: error, isLoading:false})
-        //     })
         
+       }
+    
+    onSubmit(e){
+        e.preventDefault()                       
+        this.props.setReq()
+                
     }
 
     onChange(e){
          this.props.setData(e)
-         }
-        render(){                       
+    }
+
+        render(){  
+            const {errors}=this.props.errors
+          console.log(errors)                     
   
          return (
             <form onSubmit={this.onSubmit}>
@@ -56,36 +41,40 @@ class SingupForm extends Component {
                     type="text"
                     id="usernamesf"
                     eventInput={this.onChange}                
-                    label='Username'
+                    label='Username'                  
                 /> 
+                {errors&&<Alert error={errors.username}/>}
                 <Input
                     inputName="email"
                     type="email"
                     id="emailsf"                
-                    eventInput={this.onChange}                
+                    eventInput={this.onChange}                                   
                     label='Email'
-                /> 
-            <Input
+                 /> 
+                 {errors&&<Alert error={errors.email}/>}
+                <Input
                     inputName="password"
                     type="password"
                     id="passwordsf"                
-                    eventInput={this.onChange}                
-                    label='Password'
+                    eventInput={this.onChange}                                   
+                    label='Password'                    
                 />
-            <Input
+                {errors&&<Alert error={errors.password}/>}
+                <Input
                     inputName="passwordConfirm"
                     type="password"
                     id="passwordConfirmsf"                
                     eventInput={this.onChange}                
                     label='PasswordConfirming'
                 />
-            <SelectField
+                {errors&&<Alert error={errors.passwordConfirm}/>}
+                 <SelectField
                     value={this.props.timezone}
                     selectName='timezone'
                     timezone={time}                
-                    selectEvent={this.onChange}
-            /> 
-            {/* отредактировать валидацию   добавтить disable со значение из this*/}
+                    selectEvent={this.onChange}                    
+                    /> 
+                {errors&&<Alert error={errors.timezone}/>}
                 <Button 
                     buttonName='Sing Up'
                 /> 

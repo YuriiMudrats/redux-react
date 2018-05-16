@@ -1,4 +1,4 @@
-import {POST_SIGNUP_FORM} from '../constan'
+import {SHOW_ERRORS} from '../constan'
 
 const initialState={
         isLoading:false,
@@ -10,8 +10,8 @@ const initialState={
  
  export default function pageState(state=initialState, {type, payload}){
        switch(type) {
-            case POST_SIGNUP_FORM: 
-                 return Object.assign({}, {isSuccess : true})
+            case SHOW_ERRORS: 
+                 return Object.assign({}, state, {errors : payload})
             default: 
                 return state
        }

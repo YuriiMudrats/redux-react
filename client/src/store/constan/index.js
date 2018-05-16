@@ -1,2 +1,4 @@
 export const POST_SIGNUP_FORM = 'POST_SIGNUP_FORM'
 export const SET_DATA_TO_STORE='SET_DATA_TO_STORE'
+export const MERGE_PROPS ='MERGE_PROPS'
+export const SHOW_ERRORS='SHOW_ERRORS'

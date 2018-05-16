@@ -12,8 +12,8 @@ const InputField=({inputName, value,type, error, eventInput,id,label})=>{
            type={type}
            value={value}
            className='form-control'
-           onChange={eventInput}/>
-           {/* {{error}!==null&&{error}.username && <span className='help-block'>{{error}.username}</span>} */}
+           onChange={eventInput}
+           />           
          </div>
     )
 }
@@ -23,7 +23,7 @@ InputField.propTypes={
     inputName: PropTypes.string.isRequired,
     value: PropTypes.string,
     type: PropTypes.string.isRequired,
-    error: PropTypes.string,
+    error: PropTypes.object,
     eventInput: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
 }

@@ -1,13 +1,5 @@
 import axios from "axios";
-import {POST_SIGNUP_FORM, SET_DATA_TO_STORE} from '../constan'
-
-// export default  (userData){
-//     return dispatch=>{
-//       return axios.post('/api/users', userData)
-//       .then()  
-//     }
-
-// }
+import {POST_SIGNUP_FORM, SET_DATA_TO_STORE, MERGE_PROPS, SHOW_ERRORS} from '../constan'
 
 export function setData(payload){
     return {
@@ -28,11 +20,19 @@ export function changeState(){
     type: MERGE_PROPS   
   }
 }
+export function setError(payload){
+  return {
+    type: SHOW_ERRORS,
+    payload
+  }
+}
+
+
 export function setReq(){
-  return (dispatch, setState, axios)=>{
+  return (dispatch, setState, axios)=>{   
     const data=setState().user
-      axios.post('/api/users/', data)
-     .then(data=>console.log(data))
+      axios.post('/api/users/', data) 
+      .then(data=>dispatch(setError(data.data.errors)))    
      dispatch(setForm())
    }
 }

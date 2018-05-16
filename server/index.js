@@ -16,8 +16,10 @@ console.log(users)
 
 app.use(webpackMiddleware(webpack(webpackConfig)))
 app.get('/*',(req, resp)=>{
-     
     resp.sendFile(path.join(__dirname, './index.html'))
+})
+mongoose.connect(config.database, ()=>{
+    console.log('db conncted')
 })
 app.use('/api/users', users)
 
