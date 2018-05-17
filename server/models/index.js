@@ -1,6 +1,27 @@
-import schemaUsers from './User'
+import mongoose from 'mongoose'
+import crypto from 'crypto-js'
+import beautifyUnique from 'mongoose-beautiful-unique-validation'
 
-export default {
-    schemaUsers
-}
+mongoose.Promise = Promise 
 
+const schema=  mongoose.Schema({
+    username: {
+        type: String,
+        unique: true
+        
+    },
+     email: {
+         type: String,
+         unique: true
+         
+     },
+     
+     hashedPassword: {
+         type: String
+         
+     }
+})
+
+schema.plugin(beautifyUnique)
+ 
+export default schema
