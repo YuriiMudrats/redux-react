@@ -3,9 +3,9 @@ import {Route, Switch} from 'react-router-dom'
 import HomePage from '../pages/HomePage'
 import LoginPage from '../pages/LoginPage'
 import SingUpPage from '../pages/SingUpPage'
-import ProtectingPage from '../pages/ProptectPage'
-
-
+import Protected from '../pages/ProptectPage'
+import {withRouter} from 'react-router'
+import PrivateRoute from './route'
   
 
  const Main=()=>( 
@@ -13,9 +13,9 @@ import ProtectingPage from '../pages/ProptectPage'
         <Route exact path='/' component={HomePage}/>
         <Route path='/login' component={LoginPage}/>
         <Route path='/signup' component={SingUpPage}/>
-        <Route path='/protectpage' component={ProtectingPage}/>
+        {/* <PrivateRoute path="/protected" component={Protected}/> */}
       </Switch>
     )  
  
-export default Main
+export default withRouter(Main)
 

@@ -1,20 +1,21 @@
-// import React from 'react'
-// import {Route} from 'react-router-dom'
+import {Route, Redirect} from 'react-router-dom'
 
-// import HomePage from '../pages/HomePage'
-// import LoginPage from '../pages/LoginPage'
-// import SingUpPage from '../pages/SingUpPage'
-// import ProtectingPage from '../pages/ProptectPage'
 
-// const Routes=()=>{
-//     return (
-        
-//             <Route path='/' componet={HomePage}/>
-//             <Route path='/login' componet={LoginPage}/>
-//             <Route path='/singup' component={SingUpPage}/>
-//             <Route path='/protectpage' component={ProtectingPage}/>
-        
-//     )
+
+// const PrivateRoute=({component: Component, ...rest},)=>{
+//     <Route {...rest} render={
+//         props=>{
+//             isLogin? (
+//             <Component {...props}/>) :
+//             (<Redirect to={
+//                 pathname='/login'
+//             }/>)
+
+//         }
+//     }/>
+// }
+// function mapStateToProps(state){
+//     return 
 // }
 
-// export default Routes
+// export default connect()(PrivateRouter)

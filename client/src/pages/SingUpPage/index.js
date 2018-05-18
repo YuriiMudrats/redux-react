@@ -29,7 +29,7 @@ const mapStateToDispatch = {
 }
 function mapStateToProps(state){
    return {
-    page : state.page
+    page : state.page.errorsSignUp
     }
    
 } 

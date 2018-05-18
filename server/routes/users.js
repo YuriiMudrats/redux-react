@@ -1,13 +1,10 @@
 import express from 'express'
-import Validator from 'validator'
-import isEmpty from 'lodash/isEmpty'
 let router = express.Router()
 import validateInput from '../shared/validations/signup'
-import mongoose from 'mongoose'
 import Users from '../index'
 import bcrypt from 'bcrypt'
 import saltRounds from '../config'
-
+import validLogIn from '../shared/validations/login'
 
 router.post('/', async(req, res)=>{
     
@@ -16,15 +13,14 @@ router.post('/', async(req, res)=>{
 
    if(isValid) {
     const {username, password, email}=req.body
-    const hash= await bcrypt.hash(password, 10) 
-      
+    const hash= await bcrypt.hash(password, 10)     
        
     let user =new Users({username: username,
                          email: email, 
                          hashedPassword: hash})
-    user.save()                   
+      user.save()                    
                
-        res.json({isSuccess: true})
+      res.json({isSign: true})
        
           }  
      else { 
@@ -32,5 +28,19 @@ router.post('/', async(req, res)=>{
    }
 }
 )
+router.get('/', (req, res)=>{
+     console.log("req.body")
+  const {errors, isValid}=validLogIn(req.body)
+  if(isValid){
+     const {email, password}=req.body 
+     Users.find((err, email)=>{
+       if(err)console.log(err)
+       console.log(email)
+       res.json({isLogin: true})
+     })
+  } else {
+    res.json({errors})
+  }
+})
 
 export default router

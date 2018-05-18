@@ -5,7 +5,8 @@ import webpack from 'webpack'
 import webpackMiddleware from 'webpack-dev-middleware'
 import webpackConfig from '../webpack.config.dev'
 import config from './config'
-import users from './routes/users'
+import signup from './routes/users'
+import login from './routes/login'
 import mongoose from 'mongoose'
 import schema from './models'
 const port=3000
@@ -26,9 +27,8 @@ mongoose.connect(config.database, {autoIndex: false}, function(err){
     }
 })
 var Users = mongoose.model("User",  schema )
-// let user =new Users({username: 'arthur', email:"use@mailcom", hashedPassword: 'dsfsdf'})
-// user.save()
-app.use('/api/users', users)
+app.use('/api/users', signup)
+app.use('/api/users', login)
 
 
 app.listen(port, ()=> {

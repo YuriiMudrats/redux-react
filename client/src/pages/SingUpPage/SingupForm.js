@@ -30,9 +30,8 @@ class SingupForm extends Component {
     }
 
         render(){  
-            const {errors}=this.props.errors
-          console.log(errors)                     
-  
+            const {errors}=this.props                          
+              console.log(errors)
          return (
             <form onSubmit={this.onSubmit}>
                 <h2>SignUpForm</h2>
