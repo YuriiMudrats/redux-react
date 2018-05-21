@@ -1,9 +1,8 @@
-import {SHOW_ERRORS_SIGNUP,SHOW_ERRORS_LOGIN,PUSH_TO_PROTECT_PAGE, } from '../constan'
+import {SHOW_ERRORS_SIGNUP,SHOW_ERRORS_LOGIN,IS_LOGIN } from '../constan'
 
 const initialState={
         isLoading:false,
-        isLogin: false,
-        redirect: false,
+        isAuth: false,        
         errorsSignUp: null,
         errorsLogin: null
        }
@@ -13,11 +12,12 @@ const initialState={
  export default function pageState(state=initialState, {type, payload}){
        switch(type) {
             case SHOW_ERRORS_SIGNUP:             
-                 return Object.assign({}, state, {errorsSignUp : payload})
+                 return { ...state, errorsSignUp : payload }
             case SHOW_ERRORS_LOGIN:             
                  return Object.assign({}, state, {errorsLogin : payload})     
-            case PUSH_TO_PROTECT_PAGE :
-                 return Object.assign({},state,{isLogin: true} )
+            case IS_LOGIN :
+                 return Object.assign({},state,{isAuth: payload.data.isAuth
+                 } )
             default: 
                 return state
        }

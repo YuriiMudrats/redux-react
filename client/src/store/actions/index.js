@@ -3,7 +3,8 @@ import {POST_SIGNUP_FORM,
         SET_DATA_TO_STORE,
         SHOW_ERRORS_SIGNUP,
         SHOW_ERRORS_LOGIN,
-        PUSH_TO_PROTECT_PAGE} from '../constan'
+        PUSH_TO_PROTECT_PAGE,
+        IS_LOGIN} from '../constan'
 
 
 export function setData(payload){
@@ -43,6 +44,12 @@ export function isSuccessRes(payload){
     payload
   }
 }
+export function isLogin(payload){
+  return {
+    type: IS_LOGIN,
+    payload
+  }
+}
 
 
 
@@ -53,19 +60,25 @@ export function setReq(){
     const data=setState().user
       axios.post('/api/users/', data) 
       .then(error=>dispatch(setErrorSignUp(error.data.errors)))
-      // .then(())  redirect    
+         
       dispatch(setForm())            
    }
 }
 
 export function setLogReq(){
-  return (dispatch, setState, axios)=>{ 
-     console.log('setLogReq')
-    const data=setState().user
-    console.log(data)
+  return (dispatch, setState, axios)=>{      
+    const data=setState().user    
       axios.post('/api/users/log', data) 
-      .then(error=>dispatch(setErrorLogin(error.data.errors)))
-         
+      .then(
+        data=>{
+          const serialValue=JSON.stringify(data.data.jwToken)
+          localStorage.setItem('jwToken', serialValue)
+          dispatch(isLogin(data))
+        },
+        error=>console.log(erro))
+      
+
+              
       dispatch(setForm())            
    }
 }

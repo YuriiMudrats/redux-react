@@ -13,9 +13,9 @@ import PrivateRoute from './route'
         <Route exact path='/' component={HomePage}/>
         <Route path='/login' component={LoginPage}/>
         <Route path='/signup' component={SingUpPage}/>
-        {/* <PrivateRoute path="/protected" component={Protected}/> */}
+        <PrivateRoute path='/protected' component={Protected}/>
       </Switch>
     )  
  
-export default withRouter(Main)
+export default Main
 

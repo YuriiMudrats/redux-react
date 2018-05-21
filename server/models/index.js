@@ -7,14 +7,14 @@ mongoose.Promise = Promise
 const schema=  mongoose.Schema({
     username: {
         type: String,
-        unique: true
-        
-    },
+        unique: true,
+        lowercase: true       
+               },
      email: {
          type: String,
-         unique: true
-         
-     },
+         unique: true,
+         lowercase: true
+            },
      
      hashedPassword: {
          type: String
