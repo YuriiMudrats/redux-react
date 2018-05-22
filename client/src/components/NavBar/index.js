@@ -1,7 +1,21 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import { connect } from 'react-redux';
+import {GoAway} from '../../store/actions'
+class NavBar extends Component {
+    constructor(props){
+        super(props)
+        this.handlerClick=this.handlerClick.bind(this)
+    }
 
-const NavBar=()=>{
+    handlerClick(){
+        this.props.GoAway()
+    }
+
+    render(){
+      const {isAuth}=this.props
+      console.log(isAuth)
+      
     return(
          <nav class='navbar navbar-default'>
          <div className='container-fluid'>
@@ -12,17 +26,33 @@ const NavBar=()=>{
           </div>
           <div className='collapse navbar-collapse'>
           <ul className='nav navbar-nav navbar-right'>
-             <li>
-                 <Link to='/login'><a href='#'> Login </a></Link>
+             <li>{
+                 !isAuth ?
+                 <Link to='/login'><a href='#'>Login</a></Link>
+                 : <Link to='/'><a href='#' onClick={this.handlerClick}>LogOut</a></Link>}
              </li>
-             <li>
-                 <Link to='/signup'><a href='#'> Sing Up</a></Link>
+             <li>{
+                 !isAuth ?
+                 <Link to='/signup'><a href='#'> Sing Up</a></Link> 
+                : null }
              </li>
             </ul>
            </div>      
          </div>
           </nav>   
     )
+    }
 }
 
-export default NavBar
+const mapStateToDispatch = {
+    GoAway
+}
+
+function mapStateToProps(state){
+    return {
+        isAuth: state.page.isAuth
+    }
+}
+
+
+export default connect(mapStateToProps,mapStateToDispatch)(NavBar)

@@ -10,7 +10,7 @@ import hashToken from '../shared/jwt'
 
 router.post('/log', (req, res)=>{    
  let {errors, isValid}=  validLogIn(req.body)
-
+  console.log(isValid)
  if(isValid){
     const {email, password}=req.body;     
        
@@ -20,8 +20,7 @@ router.post('/log', (req, res)=>{
    let auth =  bcrypt.compare(password, users[0].hashedPassword,(err, res))
      if(err) console.log(err)
        if(res){
-        const token=hashToken(users[0].email)
-        console.log(token)
+        const token=hashToken(users[0].email)        
         res.json({isLogin: true, isAuth: true, jwToken: token})
        }
        else {
@@ -30,7 +29,7 @@ router.post('/log', (req, res)=>{
        };
       }
       else{
-        res.json({isLogin: true, isAuth: false})
+        res.status(401).json({isLogin: true, isAuth: false, isReg: true})
       }
       }) 
           

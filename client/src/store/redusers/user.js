@@ -1,4 +1,4 @@
-import {SET_DATA_TO_STORE} from '../constan'
+import {SET_DATA_TO_STORE, CLEAR_STORE} from '../constan'
 
 const initialState={
          username: '',
@@ -14,7 +14,16 @@ const initialState={
             return Object.assign( state, {
                 [payload.target.name] : payload.target.value
          })
-                
+           case CLEAR_STORE:
+              return Object.assign(
+                  {}, state, {                    
+                        username: '',
+                        password: '',
+                        email: '',
+                        passwordConfirm: '',
+                        timezone: ''                        
+                  }
+              )       
          default:  
             return state
      }       

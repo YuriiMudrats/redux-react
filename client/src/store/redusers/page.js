@@ -1,10 +1,17 @@
-import {SHOW_ERRORS_SIGNUP,SHOW_ERRORS_LOGIN,IS_LOGIN } from '../constan'
+import {SHOW_ERRORS_SIGNUP,
+      SHOW_ERRORS_LOGIN,
+      IS_LOGIN,
+       GO_AWAY,
+       REDIRECT,
+       INITIALIZE
+      } from '../constan'
 
 const initialState={
         isLoading:false,
         isAuth: false,        
         errorsSignUp: null,
-        errorsLogin: null
+        errorsLogin: null,
+        initialaze: false
        }
  
 
@@ -18,6 +25,13 @@ const initialState={
             case IS_LOGIN :
                  return Object.assign({},state,{isAuth: payload.data.isAuth
                  } )
+            case GO_AWAY : 
+                 return Object.assign({},state,{isAuth: false})  
+            case INITIALIZE: 
+                 return Object.assign({},state, {initialaze: true}) 
+            case REDIRECT: 
+                  return Object.assign({},state, {isAuth: true} )  
+                       
             default: 
                 return state
        }

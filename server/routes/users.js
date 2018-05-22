@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt'
 import saltRounds from '../config'
 import validLogIn from '../shared/validations/login'
 import jwt from 'jsonwebtoken'
-
+import hashToken from '../shared/jwt'
 router.post('/', async(req, res)=>{  
      
    const {errors, isValid}=validateInput(req.body)
@@ -17,12 +17,12 @@ router.post('/', async(req, res)=>{
                          email: email, 
                          hashedPassword: hash})
       user.save()                    
-               
-      res.json({isSign: true})
+      const token=hashToken(email)        
+      res.json({isSign: true, isAuth: true, jwToken: token})
        
           }  
      else { 
-       res.json({errors})
+       res.status(401).json({errors})
    }
 });
 

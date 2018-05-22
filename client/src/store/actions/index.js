@@ -4,8 +4,12 @@ import {POST_SIGNUP_FORM,
         SHOW_ERRORS_SIGNUP,
         SHOW_ERRORS_LOGIN,
         PUSH_TO_PROTECT_PAGE,
-        IS_LOGIN} from '../constan'
-
+        IS_LOGIN,
+        GO_AWAY,
+        REDIRECT,
+        INITIALIZE,
+        CLEAR_STORE} from '../constan'
+import {push} from 'react-router-redux'
 
 export function setData(payload){
     return {
@@ -38,10 +42,9 @@ export function setErrorLogin(payload){
     payload
   }
 }
-export function isSuccessRes(payload){
+export function isSuccessRes(){
   return {
-    type: PUSH_TO_PROTECT_PAGE ,
-    payload
+    type: PUSH_TO_PROTECT_PAGE     
   }
 }
 export function isLogin(payload){
@@ -50,6 +53,28 @@ export function isLogin(payload){
     payload
   }
 }
+export function exit(){
+  return {
+    type: GO_AWAY
+  }
+}
+export function redirect(payload){
+  return {
+    type: REDIRECT,
+    payload
+  }
+}
+export function initialize(){
+  return {
+    type: INITIALIZE
+  }
+}
+export function clearStore(){
+  return {
+    type: CLEAR_STORE
+  }
+}
+
 
 
 
@@ -59,7 +84,14 @@ export function setReq(){
   return (dispatch, setState, axios)=>{   
     const data=setState().user
       axios.post('/api/users/', data) 
-      .then(error=>dispatch(setErrorSignUp(error.data.errors)))
+      .then(data=>{
+        const serialValue=JSON.stringify(data.data.jwToken)
+        localStorage.setItem('jwToken', serialValue)
+        dispatch(isLogin(data))
+        dispatch(push('/protected'))},
+        error=>{if(error.response.status===401)
+          
+          dispatch(setErrorSignUp(error.response.data.errors))})
          
       dispatch(setForm())            
    }
@@ -74,11 +106,37 @@ export function setLogReq(){
           const serialValue=JSON.stringify(data.data.jwToken)
           localStorage.setItem('jwToken', serialValue)
           dispatch(isLogin(data))
+          dispatch(push('/protected'))
         },
-        error=>console.log(erro))
-      
-
-              
-      dispatch(setForm())            
+        error=>{
+          if(error.response.data.errors){
+            dispatch(setErrorLogin(error.response.data.errors))
+          }
+          
+          if(error.response.data.isReg){
+           dispatch(push('/signup'))
+        }
+      }
+      ) 
+                
+      dispatch(setForm())  
+      dispatch(clearStore())          
    }
+}
+export function GoAway(){
+  return (dispatch, setState)=>{
+    localStorage.removeItem("jwToken")
+   dispatch(exit())
+  }
+}
+
+export function setProps(){
+  return(dispatch, setState)=>{
+    if(localStorage.getItem("jwToken")){
+      var token = JSON.parse(localStorage.getItem("jwToken"))
+      var decoded = jwt.verify(token, config.secret)    
+      dispatch(redirect())
+      decoded ? dispatch(push('/protected')) : dispatch(push('/'))
+    }
+  }
 }
