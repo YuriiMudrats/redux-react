@@ -1,14 +1,31 @@
-import React,{Component} from 'react'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { setProps } from "../../store/actions";
 
-
+// Start page
 class HomePage extends Component {
-    render(){
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.props.setProps();
+  }
+
+  render() {
     return (
-        <div>
-           <h1> Start Page</h1>
-         </div>   
-    )
-}
+      <div>
+        <h1> Start Page</h1>
+      </div>
+    );
+  }
 }
 
-export default HomePage
+const mapStateToDispatch = {
+  setProps
+};
+
+export default connect(
+  null,
+  mapStateToDispatch
+)(HomePage);

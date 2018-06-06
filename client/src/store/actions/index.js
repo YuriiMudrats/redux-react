@@ -1,142 +1,89 @@
 import axios from "axios";
-import {POST_SIGNUP_FORM,
-        SET_DATA_TO_STORE,
-        SHOW_ERRORS_SIGNUP,
-        SHOW_ERRORS_LOGIN,
-        PUSH_TO_PROTECT_PAGE,
-        IS_LOGIN,
-        GO_AWAY,
-        REDIRECT,
-        INITIALIZE,
-        CLEAR_STORE} from '../constan'
-import {push} from 'react-router-redux'
+import { push } from "react-router-redux";
+import jwt from "jsonwebtoken";
+import config from "../../../../server/config";
+import { createAction } from "redux-actions";
+// Action criation from redux-action "My action"
+export const setData = createAction("SET_DATA_TO_STORE", payload => payload);
+export const setForm = createAction("POST_SIGNUP_FORM", payload => payload);
+export const changeState = createAction("MERGE_PROPS");
+export const setErrorSignUp = createAction(
+  "SHOW_ERRORS_SIGNUP",
+  payload => payload
+);
+export const setErrorLogin = createAction(
+  "SHOW_ERRORS_LOGIN",
+  payload => payload
+);
+export const isSuccessRes = createAction("PUSH_TO_PROTECT_PAGE");
+export const isLogin = createAction("IS_LOGIN", payload => payload);
+export const exit = createAction("GO_AWAY");
+export const redirect = createAction("REDIRECT", payload => payload);
+export const initialize = createAction("INITIALIZE");
+export const clearStore = createAction("CLEAR_STORE");
+// Send SignUp requst
+export function setReq() {
+  return (dispatch, setState, axios) => {
+    const data = setState().userState;
+    axios.post("/api/users/", data).then(
+      res => {
+        const serialValue = JSON.stringify(res.data.jwToken);
+        localStorage.setItem("jwToken", serialValue);
+        dispatch(isLogin(res));
+        dispatch(push("/protected"));
+      },
+      error => {
+        if (error.response.status === 401)
+          dispatch(setErrorSignUp(error.response.data.errors));
+      }
+    );
 
-export function setData(payload){
-    return {
-      type: SET_DATA_TO_STORE,
-      payload
-  }
+    dispatch(setForm());
+  };
 }
+// Send login requst
+export function setLogReq() {
+  return (dispatch, setState, axios) => {
+    const data = setState().userState;
+    axios.post("/api/users/log", data).then(
+      res => {
+        const serialValue = JSON.stringify(res.data.jwToken);
+        localStorage.setItem("jwToken", serialValue);
+        dispatch(isLogin(res));
+        dispatch(push("/protected"));
+      },
+      error => {
+        if (error.response.data.errors) {
+          dispatch(setErrorLogin(error.response.data.errors));
+        }
 
-export function setForm(payload){
-    return {
-      type: POST_SIGNUP_FORM,
-      payload
-    }
-
-}
-export function changeState(){
-  return {
-    type: MERGE_PROPS   
-  }
-}
-export function setErrorSignUp(payload){
-  return {
-    type: SHOW_ERRORS_SIGNUP,
-    payload
-  }
-}
-export function setErrorLogin(payload){
-  return {
-    type: SHOW_ERRORS_LOGIN,
-    payload
-  }
-}
-export function isSuccessRes(){
-  return {
-    type: PUSH_TO_PROTECT_PAGE     
-  }
-}
-export function isLogin(payload){
-  return {
-    type: IS_LOGIN,
-    payload
-  }
-}
-export function exit(){
-  return {
-    type: GO_AWAY
-  }
-}
-export function redirect(payload){
-  return {
-    type: REDIRECT,
-    payload
-  }
-}
-export function initialize(){
-  return {
-    type: INITIALIZE
-  }
-}
-export function clearStore(){
-  return {
-    type: CLEAR_STORE
-  }
-}
-
-
-
-
-
-
-export function setReq(){
-  return (dispatch, setState, axios)=>{   
-    const data=setState().user
-      axios.post('/api/users/', data) 
-      .then(data=>{
-        const serialValue=JSON.stringify(data.data.jwToken)
-        localStorage.setItem('jwToken', serialValue)
-        dispatch(isLogin(data))
-        dispatch(push('/protected'))},
-        error=>{if(error.response.status===401)
-          
-          dispatch(setErrorSignUp(error.response.data.errors))})
-         
-      dispatch(setForm())            
-   }
-}
-
-export function setLogReq(){
-  return (dispatch, setState, axios)=>{      
-    const data=setState().user    
-      axios.post('/api/users/log', data) 
-      .then(
-        data=>{
-          const serialValue=JSON.stringify(data.data.jwToken)
-          localStorage.setItem('jwToken', serialValue)
-          dispatch(isLogin(data))
-          dispatch(push('/protected'))
-        },
-        error=>{
-          if(error.response.data.errors){
-            dispatch(setErrorLogin(error.response.data.errors))
-          }
-          
-          if(error.response.data.isReg){
-           dispatch(push('/signup'))
+        if (error.response.data.isReg) {
+          dispatch(push("/signup"));
         }
       }
-      ) 
-                
-      dispatch(setForm())  
-      dispatch(clearStore())          
-   }
-}
-export function GoAway(){
-  return (dispatch, setState)=>{
-    localStorage.removeItem("jwToken")
-   dispatch(exit())
-  }
-}
+    );
 
-export function setProps(){
-  return(dispatch, setState)=>{
-    if(localStorage.getItem("jwToken")){
-      var token = JSON.parse(localStorage.getItem("jwToken"))
-      var decoded = jwt.verify(token, config.secret)    
-      dispatch(redirect())
-      decoded ? dispatch(push('/protected')) : dispatch(push('/'))
+    dispatch(setForm());
+    dispatch(clearStore());
+  };
+}
+// remove my token in localStore
+export function GoAway() {
+  return (dispatch, setState) => {
+    localStorage.removeItem("jwToken");
+    dispatch(exit());
+  };
+}
+// JWT token decoded
+
+export function setProps() {
+  return (dispatch, setState) => {
+    if (localStorage.getItem("jwToken")) {
+      var token = JSON.parse(localStorage.getItem("jwToken"));
+      var decoded = jwt.verify(token, config.secret);
+      console.log(decoded + " my token");
+      dispatch(redirect());
+      decoded ? dispatch(push("/protected")) : dispatch(push("/"));
     }
-  }
+  };
 }
