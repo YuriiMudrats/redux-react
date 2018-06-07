@@ -6,18 +6,22 @@ import { setData, setLogReq } from "../../store/actions/";
 //Form page
 class LoginPage extends Component {
   render() {
-    const { page, setData, setLogReq } = this.props;
+    const { pageErrors, setData, setLogReq } = this.props;
     return (
       <div className="row">
         <div className="col-md-4 col-md-offset-4">
-          <LoginForm errors={page} setData={setData} setLogReq={setLogReq} />
+          <LoginForm
+            errors={pageErrors}
+            setData={setData}
+            setLogReq={setLogReq}
+          />
         </div>
       </div>
     );
   }
 }
 function mapStateToProps(state) {
-  return { page: state.pageState };
+  return { pageErrors: state.pageState };
 }
 const mapStateToDispatch = {
   setData,
