@@ -7,6 +7,7 @@ import {
   initialize,
   redirect
 } from "../actions";
+import { Record } from "immutable";
 const initialState = {
   isLoading: false,
   isAuth: false,

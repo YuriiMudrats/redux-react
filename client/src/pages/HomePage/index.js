@@ -7,11 +7,6 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
   }
-
-  componentDidMount() {
-    this.props.setProps();
-  }
-
   render() {
     return (
       <div>
@@ -21,9 +16,9 @@ class HomePage extends Component {
   }
 }
 
-const mapStateToDispatch = {
-  setProps
-};
+// const mapStateToDispatch = {
+//   setProps
+// };
 
 export default connect(
   null,
