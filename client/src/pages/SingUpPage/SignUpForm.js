@@ -6,83 +6,78 @@ import validateInput from "../../../../server/shared/validations/signup";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import SelectField from "../../components/Select";
-import Alert from "../../components/Alert";
+import { reduxForm, Field } from "redux-form";
 
 // SignUp form
-class SingupForm extends Component {
+class SignUpForm extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
   }
-
   onSubmit(e) {
     e.preventDefault();
     this.props.setReq();
   }
-
-  onChange(e) {
-    this.props.setData(e);
-  }
-
   render() {
-    const { errors } = this.props;
+    const { errors, timezone } = this.props;
     console.log(errors);
     return (
       <form onSubmit={this.onSubmit}>
         <h2>SignUpForm</h2>
-        <Input
-          inputName="username"
+        <Field
+          name="username"
           type="text"
-          id="usernamesf"
-          eventInput={this.onChange}
           label="Username"
+          id="usernamesf"
+          component={Input}
+          errors={errors}
         />
-        {errors && <Alert error={errors.username} />}
-        <Input
-          inputName="email"
+        <Field
+          name="email"
           type="email"
-          id="emailsf"
-          eventInput={this.onChange}
           label="Email"
+          id="emailsf"
+          component={Input}
+          errors={errors}
         />
-        {errors && <Alert error={errors.email} />}
-        <Input
-          inputName="password"
+        <Field
+          name="password"
           type="password"
-          id="passwordsf"
-          eventInput={this.onChange}
           label="Password"
+          id="passwordsf"
+          component={Input}
+          errors={errors}
         />
-        {errors && <Alert error={errors.password} />}
-        <Input
-          inputName="passwordConfirm"
+        <Field
+          name="passwordConfirm"
           type="password"
-          id="passwordConfirmsf"
-          eventInput={this.onChange}
           label="PasswordConfirming"
+          id="passwordConfirmsf"
+          component={Input}
+          errors={errors}
         />
-        {errors && <Alert error={errors.passwordConfirm} />}
-        <SelectField
-          value={this.props.timezone}
-          selectName="timezone"
+        <Field
+          name="timezone"
           timezone={time}
-          selectEvent={this.onChange}
+          label="PasswordConfirming"
+          component={SelectField}
+          errors={errors}
         />
-        {errors && <Alert error={errors.timezone} />}
         <Button buttonName="Sing Up" />
       </form>
     );
   }
 }
 
-SingupForm.propTypes = {
+SignUpForm.propTypes = {
   setData: PropTypes.func.isRequired,
   setReq: PropTypes.func.isRequired
 };
 
-SingupForm.contextTypes = {
+SignUpForm.contextTypes = {
   router: PropTypes.object
 };
-
-export default SingupForm;
+const SignUpField = reduxForm({
+  form: "SignUpForm"
+})(SignUpForm);
+export default SignUpField;

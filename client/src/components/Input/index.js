@@ -2,19 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Label from "../Label";
 import Alert from "../Alert";
-const InputField = ({
-  inputName,
-  value,
-  type,
-  eventInput,
-  id,
-  label,
-  errors
-}) => {
+const InputField = ({ input, value, type, eventInput, id, label, errors }) => {
   return (
     <div className="form-group">
       <Label label={label} id={id} />
       <input
+        {...input}
         id={id}
         type={type}
         value={value}

@@ -6,7 +6,7 @@ import { setData, setLogReq } from "../../store/actions/";
 //Form page
 class LoginPage extends Component {
   render() {
-    const { pageErrors, setData, setLogReq } = this.props;
+    const { pageErrors, setLogReq } = this.props;
     return (
       <div className="row">
         <div className="col-md-4 col-md-offset-4">

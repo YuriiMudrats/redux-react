@@ -3,6 +3,7 @@ import { push } from "react-router-redux";
 import jwt from "jsonwebtoken";
 import config from "../../../../server/config";
 import { createAction } from "redux-actions";
+
 // Action criation from redux-action "My action"
 export const setData = createAction("SET_DATA_TO_STORE", payload => payload);
 export const setForm = createAction("POST_SIGNUP_FORM", payload => payload);
@@ -21,10 +22,11 @@ export const exit = createAction("GO_AWAY");
 export const redirect = createAction("REDIRECT", payload => payload);
 export const initialize = createAction("INITIALIZE");
 export const clearStore = createAction("CLEAR_STORE");
+export const userInfo = createAction("USER_INFO", userInfo => userInfo);
 // Send SignUp requst
 export function setReq() {
   return (dispatch, setState, axios) => {
-    const data = setState().userState;
+    const data = setState().form.SignUpForm.values;
     axios.post("/api/users/", data).then(
       res => {
         const serialValue = JSON.stringify(res.data.jwToken);
@@ -44,11 +46,13 @@ export function setReq() {
 // Send login requst
 export function setLogReq() {
   return (dispatch, setState, axios) => {
-    const data = setState().userState;
+    const data = setState().form.logForm.values;
+    console.log(data);
     axios.post("/api/users/log", data).then(
       res => {
         const serialValue = JSON.stringify(res.data.jwToken);
         localStorage.setItem("jwToken", serialValue);
+        dispatch(userInfo(res.data.userInfo));
         dispatch(isLogin(res));
         dispatch(push("/protected"));
       },

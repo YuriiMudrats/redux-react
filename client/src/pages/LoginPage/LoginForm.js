@@ -4,18 +4,14 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 
 //Login form
-class LoginForm extends Component {
+class SyncLoginForm extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
   }
   onSubmit(e) {
     e.preventDefault();
     this.props.setLogReq();
-  }
-  onChange(e) {
-    this.props.setData(e);
   }
 
   render() {
@@ -46,8 +42,8 @@ class LoginForm extends Component {
     );
   }
 }
-LoginForm = reduxForm({
-  form: "userState"
-})(LoginForm);
+const LoginForm = reduxForm({
+  form: "logForm"
+})(SyncLoginForm);
 
 export default LoginForm;
