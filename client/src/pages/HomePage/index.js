@@ -16,9 +16,9 @@ class HomePage extends Component {
   }
 }
 
-// const mapStateToDispatch = {
-//   setProps
-// };
+const mapStateToDispatch = {
+  setProps
+};
 
 export default connect(
   null,

@@ -8,7 +8,7 @@ import UserList from "../../components/UserList";
 class ProtectingPage extends Component {
   render() {
     const { isAuth, userInfo } = this.props;
-    console.log(userInfo + "ja tut");
+    console.log(userInfo);
     return isAuth ? <UserList userInfo={userInfo} /> : <Redirect to="/login" />;
   }
 }

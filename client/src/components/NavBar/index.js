@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { GoAway } from "../../store/actions";
-import "./style.css";
+
 class NavBar extends Component {
   constructor(props) {
     super(props);
@@ -22,10 +22,10 @@ class NavBar extends Component {
         <div className="container-fluid">
           <div className="navbar-header">
             <Link to="/">
-              {/* <img
+              <img
                 className="icon-logo"
                 src="https://image.freepik.com/free-icon/single-cube_318-36160.jpg"
-              /> */}
+              />
               <a className="navbar-brand" href="#">
                 Facecube
               </a>

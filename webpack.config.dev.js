@@ -1,5 +1,6 @@
 import path from "path";
 export default {
+  mode: "production",
   entry: path.join(__dirname, "/client/index.js"),
   output: {
     path: "/",
@@ -23,22 +24,20 @@ export default {
         ]
       },
       {
-        test: /\.css$/,
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"]
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
         use: [
           {
-            loader: "style-loader"
-          },
-          {
-            loader: "css-loader",
-            options: {
-              modules: true
-            }
+            loader: "file-loader"
           }
         ]
       }
     ]
   },
   resolve: {
-    extensions: [".js", ".css"]
+    extensions: [".js", ".jsx", ".css"]
   }
 };

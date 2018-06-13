@@ -8,40 +8,30 @@ import {
   redirect
 } from "../actions";
 import { Record } from "immutable";
-const initialState = {
+const initState = Record({
   isLoading: false,
   isAuth: false,
   errorsSignUp: null,
   errorsLogin: null,
   initialaze: false
-};
+});
 
 export const pageState = handleActions(
   {
-    [setErrorSignUp]: (state, { payload }) => ({
-      ...state,
-      errorsSignUp: payload
-    }),
-    [setErrorLogin]: (state, { payload }) => ({
-      ...state,
-      errorsLogin: payload
-    }),
-    [isLogin]: (state, { payload }) => ({
-      ...state,
-      isAuth: payload.data.isAuth
-    }),
-    [exit]: (state, { payload }) => ({
-      ...state,
-      isAuth: false
-    }),
-    [initialize]: (state, { payload }) => ({
-      ...state,
-      initialaze: true
-    }),
-    [redirect]: (state, { payload }) => ({
-      ...state,
-      isAuth: true
-    })
+    [setErrorSignUp]: (state, { payload }) =>
+      state.set("errorsSignUp", payload),
+    [setErrorLogin]: (state, { payload }) => state.set("errorsLogin", payload),
+    [isLogin]: (
+      state,
+      {
+        payload: {
+          data: { isAuth }
+        }
+      }
+    ) => state.set("isAuth", isAuth),
+    [exit]: state => state.set("isAuth", false),
+    [initialize]: state => state.set("initialaze", true),
+    [redirect]: state => state.set("isAuth", true)
   },
-  initialState
+  initState()
 );
