@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { GoAway } from "../../store/actions";
+import { exit } from "../../store/actions";
 
 class NavBar extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class NavBar extends Component {
   }
 
   handlerClick() {
-    this.props.GoAway();
+    this.props.exit();
   }
 
   render() {
@@ -62,7 +62,7 @@ class NavBar extends Component {
 }
 
 const mapStateToDispatch = {
-  GoAway
+  exit
 };
 
 function mapStateToProps(state) {

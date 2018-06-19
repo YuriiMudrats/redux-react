@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, SubmitHandler } from "redux-form";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 
@@ -7,19 +7,20 @@ import Button from "../../components/Button";
 class SyncLoginForm extends Component {
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
+    // this.onSubmit = this.onSubmit.bind(this);
   }
-  onSubmit(e) {
-    e.preventDefault();
-    this.props.setLogReq();
-  }
+  // onSubmit(e) {
+  //   e.preventDefault();
+  //   console.log(e);
+  //   this.props.dispatch(setData());
+  // }
 
   render() {
     const errors = this.props.errors.errorsLogin;
 
     console.log(errors);
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this.props.handleSubmit}>
         <h2>Login </h2>
         <Field
           name="email"

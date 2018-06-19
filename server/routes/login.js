@@ -8,6 +8,7 @@ import hashToken from "../shared/jwt";
 
 router.post("/log", (req, res) => {
   let { errors, isValid } = validLogIn(req.body);
+  console.log(req.body);
   console.log(isValid);
   if (isValid) {
     const { email, password } = req.body;

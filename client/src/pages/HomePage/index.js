@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { setProps } from "../../store/actions";
+import { changePage } from "../../store/actions";
 
 // Start page
 class HomePage extends Component {
@@ -17,7 +17,7 @@ class HomePage extends Component {
 }
 
 const mapStateToDispatch = {
-  setProps
+  changePage
 };
 
 export default connect(

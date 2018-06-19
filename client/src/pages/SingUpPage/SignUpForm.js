@@ -10,19 +10,11 @@ import { reduxForm, Field } from "redux-form";
 
 // SignUp form
 class SignUpForm extends Component {
-  constructor(props) {
-    super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-  onSubmit(e) {
-    e.preventDefault();
-    this.props.setReq();
-  }
   render() {
     const { errors, timezone } = this.props;
     console.log(errors);
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this.props.handleSubmit}>
         <h2>SignUpForm</h2>
         <Field
           name="username"

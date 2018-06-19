@@ -1,18 +1,25 @@
 import React, { Component } from "react";
 import SignUpField from "./SignUpForm";
 import { connect } from "react-redux";
-import { setData, setReq } from "../../store/actions/";
+import { setForm } from "../../store/actions/";
 import PropTypes from "prop-types";
 
 //SignUp page
 class SingUp extends Component {
+  constructor(props) {
+    super(props);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+  onSubmit(value) {
+    this.props.setForm(value);
+  }
   render() {
     const { page, setReq } = this.props;
 
     return (
       <div className="row">
         <div className="col-md-4 col-md-offset-4">
-          <SignUpField errors={page} setData={setData} setReq={setReq} />
+          <SignUpField errors={page} onSubmit={this.onSubmit} />
         </div>
       </div>
     );
@@ -24,8 +31,7 @@ SignUpField.propTypes = {
 };
 
 const mapStateToDispatch = {
-  setData,
-  setReq
+  setForm
 };
 function mapStateToProps(state) {
   return {
